@@ -65,7 +65,7 @@ ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t 
 	
 	if(*f_pos == 0) {
 		char tmp[count];
-		copy_from_user(tmp, (buf+count), 1);
+		copy_from_user(tmp, buf, 1);
 		*onebyte_data = tmp[0];
 	}
 
