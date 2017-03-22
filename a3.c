@@ -40,14 +40,16 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
 {
 	/*please complete the function on your own*/
 	
+	char *temp_data = NULL;
+	*temp_data = *onebyte_data;
 	int bytes_read = 0;
 	
-	while(count && *onebyte_data) {
-		put_user(*(onebyte_data++), buf++);
+	while(count && *temp_data) {
+		put_user(*(temp_data++), buf++);
 		bytes_read++;
 		count--;
 	}
-	
+
 	return bytes_read;
 }
 
