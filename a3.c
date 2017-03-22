@@ -57,6 +57,18 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
 ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t *f_pos)
 {
 	/*please complete the function on your own*/
+
+	printk(KERN_INFO "Running onebyte_write:\n");
+	printk(KERN_INFO "buf field is %lu.\n", buf);
+	printk(KERN_INFO "count field is %lu.\n", count);
+	printk(KERN_INFO "f_pos is %lu.\n", *f_pos);
+	
+	char *tmp = NULL;
+	copy_from_user(tmp, buf, 1);
+	
+	*onebyte_data = tmp[0];
+	
+	return 0;
 }
 
 static int onebyte_init(void)
