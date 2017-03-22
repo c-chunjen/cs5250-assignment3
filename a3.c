@@ -40,13 +40,18 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
 {
 	/*please complete the function on your own*/
 	
-	printk(KERN_ALERT "Running onebyte_read:\n");
-	printk(KERN_ALERT "buf field is %lu.\n", buf);
-	printk(KERN_ALERT "count field is %lu.\n", count);
-	printk(KERN_ALERT "f_pos is %lu.\n", *f_pos);
+	printk(KERN_INFO "Running onebyte_read:\n");
+	printk(KERN_INFO "buf field is %lu.\n", buf);
+	printk(KERN_INFO "count field is %lu.\n", count);
+	printk(KERN_INFO "f_pos is %lu.\n", *f_pos);
 
-	copy_to_user(buf, onebyte_data, 1);
-	return 1;
+	if(*f_pos == 0) {
+		copy_to_user(buf, onebyte_data, 1);
+		*f_pos++;
+		return 1;
+	} else if(*f_pos == 1) {
+		return 0;
+	}
 }
 
 ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t *f_pos)
