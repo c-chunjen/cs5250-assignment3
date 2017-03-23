@@ -67,6 +67,8 @@ ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t 
 		char tmp[count];
 		copy_from_user(tmp, buf, 1);
 		*onebyte_data = tmp[0];
+	} else if(*f_pos > 0) {
+			return -ENOSPC;
 	}
 
 	*f_pos = *f_pos+1;	
