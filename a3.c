@@ -49,7 +49,7 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
 		copy_to_user(buf, onebyte_data, 1);
 		*f_pos = *f_pos+1;
 		return 1;
-	} else if(*f_pos == 1) {
+	} else if(*f_pos > 0) {
 		return 0;
 	}
 }
@@ -68,7 +68,7 @@ ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t 
 		copy_from_user(tmp, buf, 1);
 		*onebyte_data = tmp[0];
 	} else if(*f_pos > 0) {
-			return -ENOSPC;
+		return -ENOSPC;
 	}
 
 	*f_pos = *f_pos+1;	
